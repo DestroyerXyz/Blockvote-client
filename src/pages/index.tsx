@@ -247,8 +247,8 @@ const Home: NextPage = () => {
                         <AlertIcon />
                         <AlertTitle>No balance</AlertTitle>
                         <AlertDescription>
-                            You won't be able to vote or create posts. Please
-                            get some MATIC from{" "}
+                            You won{"'"}t be able to vote or create posts.
+                            Please get some MATIC from{" "}
                             <Link
                                 color="#2358C2"
                                 href="https://mumbaifaucet.com/"
