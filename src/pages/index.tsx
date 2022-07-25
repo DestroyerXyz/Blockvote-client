@@ -52,7 +52,7 @@ const Home: NextPage = () => {
 
     useEffect(() => {
         init();
-    }, []);
+    });
 
     const init = async () => {
         if (!window.ethereum) {
