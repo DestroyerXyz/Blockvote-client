@@ -1,3 +1,16 @@
+//    Copyright 2022 Shreyans Jain <DestroyerXyz> <shreyansthebest2007@gmail.com>
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
 import type { NextPage } from "next";
 import Head from "next/head";
 import NextLink from "next/link";
@@ -23,8 +36,6 @@ import { ethers } from "ethers";
 
 declare let window: any;
 
-// TODO: Vote function
-// TODO: CreatePost function
 const Home: NextPage = () => {
     const [currentAccount, setCurrentAccount] = useState<string | undefined>();
     const [post, setPost] = useState<any | undefined>();
@@ -50,8 +61,6 @@ const Home: NextPage = () => {
             setWalletStatus(true);
         }
 
-        // const temp = window.ethereum.request({ method: "eth_chainId" });
-        // console.log(temp);
         if (
             (await window.ethereum.request({ method: "eth_chainId" })) !=
             "0x13881"
@@ -61,10 +70,6 @@ const Home: NextPage = () => {
 
         const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-        // const alchemy = new ethers.providers.AlchemyProvider(
-        //     "maticmum",
-        //     process.env.API_KEY
-        // );
         const contract = new ethers.Contract(
             "0x6d21Df4D9a17348bfC392939130611Ff026Bb034",
             abi,
@@ -263,10 +268,8 @@ const Home: NextPage = () => {
                                 </Heading>
 
                                 <VStack>
-                                    {/* <FormControl> */}
                                     <FormControl isRequired>
                                         <VStack mt={2} spacing="15px">
-                                            {/* <FormLabel>Title</FormLabel> */}
                                             <Input
                                                 size="md"
                                                 type="text"
@@ -284,9 +287,6 @@ const Home: NextPage = () => {
                                                     );
                                                 }}
                                             />
-                                            {/* </FormControl> */}
-                                            {/* <FormControl isRequired> */}
-                                            {/* <FormLabel>Description</FormLabel> */}
                                             <Input
                                                 size="md"
                                                 type="text"
@@ -298,9 +298,6 @@ const Home: NextPage = () => {
                                                     setDesc(event.target.value);
                                                 }}
                                             />
-                                            {/* </FormControl>
-                                        <FormControl isRequired> */}
-                                            {/* <FormLabel>Option 1</FormLabel> */}
                                             <Input
                                                 size="md"
                                                 type="text"
@@ -312,9 +309,6 @@ const Home: NextPage = () => {
                                                     setOpt1(event.target.value);
                                                 }}
                                             />
-                                            {/* </FormControl>
-                                        <FormControl isRequired> */}
-                                            {/* <FormLabel>Option 2</FormLabel> */}
                                             <Input
                                                 size="md"
                                                 type="text"
@@ -326,9 +320,6 @@ const Home: NextPage = () => {
                                                     setOpt2(event.target.value);
                                                 }}
                                             />
-                                            {/* </FormControl>
-                                        <FormControl isRequired> */}
-                                            {/* <FormLabel>Option 3</FormLabel> */}
                                             <Input
                                                 size="md"
                                                 type="text"
@@ -340,9 +331,6 @@ const Home: NextPage = () => {
                                                     setOpt3(event.target.value);
                                                 }}
                                             />
-                                            {/* </FormControl>
-                                        <FormControl isRequired> */}
-                                            {/* <FormLabel>Option 4</FormLabel> */}
                                             <Input
                                                 size="md"
                                                 type="text"
@@ -354,7 +342,6 @@ const Home: NextPage = () => {
                                                     setOpt4(event.target.value);
                                                 }}
                                             />
-
                                             <Button
                                                 type="submit"
                                                 onClick={() => {
@@ -370,8 +357,6 @@ const Home: NextPage = () => {
                                             >
                                                 Submit
                                             </Button>
-
-                                            {/* </FormControl> */}
                                         </VStack>
                                     </FormControl>
                                 </VStack>
