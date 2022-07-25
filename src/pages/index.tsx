@@ -41,6 +41,7 @@ const Home: NextPage = () => {
     const [post, setPost] = useState<any | undefined>();
     const [create, setCreate] = useState<boolean>(false);
     const [walletStatus, setWalletStatus] = useState<boolean>(false);
+    const [balance, setBalance] = useState<string | undefined>(undefined);
     const [title, setTitle] = useState<string>("Untitled");
     const [desc, setDesc] = useState<string>("No Description");
     const [opt1, setOpt1] = useState<string>("1");
@@ -77,19 +78,22 @@ const Home: NextPage = () => {
         );
 
         const postcount = await contract.fetchPostcount();
-        console.log(postcount);
 
         var post = [];
         for (var x = postcount - 1, y = 0; x >= 0; x--, y++) {
             post[y] = await contract.fetchPosts(x);
         }
-        console.log(post);
         setPost(post);
 
         provider
             .send("eth_requestAccounts", [])
             .then((accounts) => {
-                if (accounts.length > 0) setCurrentAccount(accounts[0]);
+                if (accounts.length > 0) {
+                    setCurrentAccount(accounts[0]);
+                    provider.getBalance(accounts[0]).then((result) => {
+                        setBalance(ethers.utils.formatEther(result));
+                    });
+                }
             })
             .catch((e) => console.log(e));
     };
@@ -126,7 +130,6 @@ const Home: NextPage = () => {
             });
 
         if (chain == null) {
-            console.log("FFFFF");
             await new Promise((r) => setTimeout(r, 5000));
         }
     };
@@ -238,6 +241,25 @@ const Home: NextPage = () => {
                         Recommended)
                     </AlertDescription>
                 </Alert>
+            ) : balance == "0.0" ? (
+                <>
+                    <Alert status="error">
+                        <AlertIcon />
+                        <AlertTitle>No balance</AlertTitle>
+                        <AlertDescription>
+                            You won't be able to vote or create posts. Please
+                            get some MATIC from{" "}
+                            <Link
+                                color="#2358C2"
+                                href="https://mumbaifaucet.com/"
+                                isExternal
+                            >
+                                MumbaiFaucet
+                            </Link>
+                            . Your wallet address: {currentAccount}
+                        </AlertDescription>
+                    </Alert>
+                </>
             ) : (
                 <></>
             )}
@@ -279,9 +301,6 @@ const Home: NextPage = () => {
                                                 maxLength={32}
                                                 errorBorderColor="red"
                                                 onChange={(event) => {
-                                                    console.log(
-                                                        event.target.value
-                                                    );
                                                     setTitle(
                                                         event.target.value
                                                     );
